@@ -1,0 +1,23 @@
+service: nest-serverless-lambda-demo
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
+
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  main: # The name of the lambda function
+    # The module 'handler' is exported in the file 'src/lambda'
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}
